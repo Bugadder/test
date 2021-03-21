@@ -1,0 +1,24 @@
+version: "1.0"
+stages:
+  - "clone"
+  - "build"
+  - "test"
+
+steps:
+  clone:
+    title: "Cloning repository"
+    type: "git-clone"
+    repo: "ramdibaaz/test"
+    revision: "${{CF_BRANCH}}"
+    git: "github"
+    stage: "clone"
+
+  test:
+    title: "Running test"
+    type: "freestyle" # Run any command
+    image: "ubuntu:latest" # The image in which command will be executed
+    working_directory: "${{clone}}" # Running command where code cloned
+    commands:
+      - "ls"
+      - "df -h"
+    stage: "test"
